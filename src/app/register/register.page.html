@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        email
+        #emailCtrl="ngModel">
+      </ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+      <small *ngIf="emailCtrl.errors?.required">El email es requerido.</small>
+      <small *ngIf="emailCtrl.errors?.email">Email no es válido.</small>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+        minlength="6"
+        #passwordCtrl="ngModel">
+      </ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+      <small *ngIf="passwordCtrl.errors?.required">La contraseña es requerida.</small>
+      <small *ngIf="passwordCtrl.errors?.minlength">La contraseña debe tener al menos 6 caracteres.</small>
+    </ion-text>
+
+    <ion-button type="submit" expand="block" [disabled]="registerForm.invalid">Registrar</ion-button>
+  </form>
+
+  <ion-button fill="clear" expand="block" (click)="goToLogin()">Ya tengo cuenta</ion-button>
+
+  <ion-toast
+    [isOpen]="showToast"
+    [message]="toastMessage"
+    duration="3000"
+    (ionDidDismiss)="showToast = false">
+  </ion-toast>
+</ion-content>
