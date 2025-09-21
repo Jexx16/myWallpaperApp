@@ -1,10 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Mis Wallpapers</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>¡Bienvenido a la página principal!</h2>
-  <ion-button expand="block" (click)="logout()">Cerrar sesión</ion-button>
+
+  <!-- Subir archivo -->
+  <input type="file" (change)="onFileSelected($event)" />
+
+  <!-- Mostrar wallpapers -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let wallpaper of wallpapers">
+        <ion-card>
+          <img [src]="wallpaper.url" alt="Wallpaper" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
